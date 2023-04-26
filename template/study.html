@@ -1,0 +1,18 @@
+{%- extends "base.html" %}
+
+{%- block contents %}
+        <article>
+            <div class="page_article-content study_archive">
+                <img class="study_archive-img" src="{{data.img.url}}?w=1200" />
+                <dl class="study_archive-impression_list">
+                  {%- for item in data.impression %}
+                    <dt class="study_archive-impression_user">
+                        <p class="study_archive-impression_name">{{item.name}}</p>
+                    </dt>
+                    <dd class="study_archive-impression_comment">
+                        <p class="study_archive-impression_text">{{item.comment|nl2br}}</p>
+                    </dd>
+                  {%- endfor %}
+                </dl>
+        </article>
+{%- endblock %}

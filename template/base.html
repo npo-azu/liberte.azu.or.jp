@@ -1,0 +1,87 @@
+{%- if data.is_top -%}
+    {%- set page_title = config.site.title -%}
+{%- else -%}
+    {%- set page_title = data.title + ' | ' + config.site.title -%}
+{%- endif -%}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <title>{{page_title}}</title>
+    <meta name="description" content="{{config.site.description}}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- OGP & Twitter Card -->
+    <meta property="og:title" content="{{page_title}}" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:description" content="{{config.site.description}}" />
+    <meta property="og:site_name" content="{{config.site.title}}" />
+    <meta property="og:type" content="{{ 'website' if data.is_top else 'article' }}" />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- FontAwesome -->
+    <link href="{{url_for('static', filename='fontawesome/css/fontawesome.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='fontawesome/css/solid.css')}}" rel="stylesheet">
+
+    <!-- GoogleFont -->
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Style -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='reset.css', ver='20230426')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('view_style', ver='20230426')}}" />
+    <style>
+        :root{
+            --bg-color: {{data.config.bg_color}};
+            --fg-color: {{data.config.fg_color}};
+            --footer-color: {{ data.config.footer_color if data.is_top else data.config.fg_color }};
+        }
+        .body{
+          {%- if data.config.bg_img %}
+            background-image: url({{data.config.bg_img.url}});
+          {%- endif %}
+        }
+    </style>
+</head>
+
+<body class="body">
+  {%- if data.is_top %}
+    <header class="top_header">
+        <h1 class="top_header-title"><img class="top_header-logo" src="{{config.site.logo.url}}" /></h1>
+        <p class="top_header-catch">{{config.top.catch|nl2br}}</p>
+    </header>
+  {%- else %}
+    <header class="page_header">
+        <a href="{{url_for('view_top')}}"><h1><img src="{{config.site.logo.url}}?h=250" /></h1></a>
+        <nav class="page_header-nav page_nav">
+            <ul class="page_nav-list">
+              {%- for item in pages %}
+                <li class="page_nav-item">
+                    <a class="page_nav-link" href="{{url_for('view_page', page_name=item.id)}}">
+                        <small class="page_nav-icon">&#x{{item.config.icon}};</small>
+                        <p class="page_nav-text">{{item.config.link_text|nl2br}}</p>
+                    </a>
+                </li>
+              {%- endfor %}
+            </ul>
+        </nav>
+    </header>
+      {%- endif %}
+    <main class="main">
+      {%- if not data.is_top %}
+        <h2 class="page_title">
+            <p class="page_title-icon_area"><small class="page_title-icon">&#x{{data.config.icon}};</small></p>
+            <p class="page_title-text">{{data.title}}</p>
+        </h2>
+      {%- endif %}
+        {%- block contents %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <section class="footer-contact">{{config.site.footer|nl2br}}</section>
+        <section class="footer-copyright"><p>{{config.site.copyright}}</p></section>
+    </footer>
+</body>
+</html>
+
