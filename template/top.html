@@ -1,0 +1,16 @@
+{%- extends "base.html" %}
+
+{%- block contents %}
+        <section class="text">
+            {{config.top.message|nl2pbr}}
+        </section>
+        <ul class="top_nav-list">
+          {%- for item in pages %}
+            <li class="top_nav-item" style="background-image:url({{item.config.link_img.url}}?fit=crop&w=350&h=150&bri=30&con=-50)">
+                <a class="top_nav-link" href="{{url_for('view_page', page_name=item.id)}}">
+                    <p class="top_nav-text">{{item.config.link_text|nl2br}}</p>
+                </a>
+            </li>
+          {%- endfor %}
+        </ul>
+{%- endblock %}
