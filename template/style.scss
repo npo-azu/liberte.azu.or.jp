@@ -329,6 +329,13 @@ html{
     100% {opacity: 0;}
 }
 
+.double_image_article{
+    &-content{
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
 .page_about{
     display: grid;
     grid-template:
@@ -358,46 +365,11 @@ html{
     }
 }
 .page_study{
-    display: grid;
-    grid-template:
-        "top_img    top_img     " auto
-        "about      about       " auto
-        "process    process     " auto
-        "philosophy philosophy  " auto
-        "archive    archive     " auto
-        "img1       img2        " auto
-        /1fr        1fr
-    ;
-
-    @include mq(sp){
-        grid-template:
-            "top_img   " auto
-            "about     " auto
-            "process   " auto
-            "philosophy" auto
-            "archive   " auto
-            "img1      " auto
-            "img2      " auto
-            /1fr
-        ;
+    & dt{ font-weight: bold; }
+    & dd{
+        padding-left: 1.5rem; 
+        padding-bottom: 1rem;
     }
-
-    &-top_img{ grid-area: top_img; }
-    &-about{ grid-area: about; }
-    &-process{ grid-area: process; }
-    &-philosophy{
-        grid-area: philosophy;
-        
-        dt{ font-weight: bold; }
-        dd{
-            padding-left: 1.5rem; 
-            padding-bottom: 1rem;
-        }
-    }
-    &-archive{ grid-area: archive; }
-    &-img1{ grid-area: img1; }
-    &-img2{ grid-area: img2; }
-    &-img3{ grid-area: img3; }
 }
 .page_episode{
     display: grid;

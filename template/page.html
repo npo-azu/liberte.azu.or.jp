@@ -22,7 +22,7 @@
 
                   {%- if item.fieldId == 'special_content' and item.content[0] == 'study_archive' %}
                     <ul>
-                      {%- for item in study[:5] %}
+                      {%- for item in study %}
                         <li><a href="{{url_for('view_study', id=item.id)}}">{{item.title}}</a></li>
                       {%- endfor %}
                     </ul>
@@ -35,6 +35,9 @@
                     {% if item.text1 %}<div class="{{article_name}}-text1">{{item.text1|markdown}}</div>{% endif %}
                     {% if item.image1 %}<img class="{{article_name}}-img1 image" src="{{item.image1.url}}?w=480" />{% endif %}
                     {% if item.text2 %}<div class="{{article_name}}-text2">{{item.text2|markdown}}</div>{% endif %}
+                    {% if item.image2 %}<img class="{{article_name}}-img2 image" src="{{item.image2.url}}?w=480" />{% endif %}
+                  {%- elif item.fieldId == 'section-double_image' %}
+                    {% if item.image1 %}<img class="{{article_name}}-img1 image" src="{{item.image1.url}}?w=480" />{% endif %}
                     {% if item.image2 %}<img class="{{article_name}}-img2 image" src="{{item.image2.url}}?w=480" />{% endif %}
                   {%- elif item.fieldId == 'section-image' %}
                     {% if item.image %}<img class="{{article_name}}-img image" src="{{item.image.url}}?w={{'1200' if item.large else '480'}}" />{% endif %}
