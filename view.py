@@ -23,6 +23,7 @@ lib.log.init(debug=env.DEBUG)
 _logger = lib.log.get_logger(__name__)
 
 app = flask.Flask(__name__, template_folder='template', static_folder='static')
+app.config['FREEZER_BASE_URL'] = env.FREEZER_BASE_URL
 
 app.add_template_filter(model.convert_markdown, name='markdown')
 app.add_template_filter(model.convert_nl2br, name='nl2br')
@@ -90,6 +91,17 @@ def view_404():
 def view_style():
     css = sass.compile( string=flask.render_template('style.scss') )
     return flask.Response(css, mimetype='text/css')
+
+
+@app.route('/sitemap.xml', methods=['GET'])
+def view_sitemap():
+    xml = flask.render_template('sitemap.xml')
+    return flask.Response(xml, mimetype='application/xml')
+
+@app.route('/robots.txt', methods=['GET'])
+def view_robots():
+    xml = flask.render_template('robots.txt')
+    return flask.Response(xml, mimetype='text/plain')
 
 
 #----------------------------------------------------------

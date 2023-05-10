@@ -37,6 +37,8 @@ def product_url_generator():
     yield 'view_404', {}
     yield 'view_top', {}
     yield 'view_style', {}
+    yield 'view_sitemap', {}
+    yield 'view_robots', {}
 
 
 #----------------------------------------------------------

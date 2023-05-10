@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: {{url_for('view_sitemap', _external=True)}}
