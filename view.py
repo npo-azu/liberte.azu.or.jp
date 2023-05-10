@@ -44,7 +44,7 @@ def set_globals():
 #----------------------------------------------------------
 # Route
 #----------------------------------------------------------
-@app.route('/index.html', methods=['GET'])
+@app.route('/', methods=['GET'])
 def view_top():
     config = model.get_config()
     data = {
@@ -59,14 +59,14 @@ def view_top():
     return flask.render_template('top.html', data=data)
 
 
-@app.route('/<page_name>.html', methods=['GET'])
+@app.route('/<page_name>/', methods=['GET'])
 def view_page(page_name):
     data = [i for i in model.get_pages() if i['id'] == page_name][0]
 
     return flask.render_template('page.html', data=data)
 
 
-@app.route('/study/<id>.html', methods=['GET'])
+@app.route('/study/<id>/', methods=['GET'])
 def view_study(id):
     config = model.get_config();
     data = [i for i in model.get_study() if i['id'] == id][0]
