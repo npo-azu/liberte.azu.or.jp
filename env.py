@@ -21,6 +21,7 @@ MICROCMS_KEY = os.getenv('MICROCMS_KEY', None)
 MICROCMS_API_PAGES = os.getenv('MICROCMS_API_PAGES', None)
 MICROCMS_API_CONFIG = os.getenv('MICROCMS_API_CONFIG', None)
 MICROCMS_API_STUDY = os.getenv('MICROCMS_API_STUDY', None)
+FREEZER_BASE_URL = os.getenv('FREEZER_BASE_URL', None)
 DEBUG = os.getenv('DEBUG', 'false')
 
 #----------------------------------------------------------           

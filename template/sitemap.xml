@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{url_for('view_top', _external=true)}}</loc>
+    <lastmod>{{config.publishedAt.isoformat(timespec='seconds')}}</lastmod>
+    <priority>1.00</priority>
+  </url>
+{%- for item in pages %}
+  <url>
+    <loc>{{url_for('view_page', page_name=item.id, _external=true)}}</loc>
+    <lastmod>{{item.publishedAt.isoformat(timespec='seconds')}}</lastmod>
+    <priority>0.80</priority>
+  </url>
+{%- endfor %}
+{%- for item in study %}
+  <url>
+    <loc>{{url_for('view_study', id=item.id, _external=true)}}</loc>
+    <lastmod>{{item.publishedAt.isoformat(timespec='seconds')}}</lastmod>
+    <priority>0.64</priority>
+  </url>
+{%- endfor %}
+</urlset>

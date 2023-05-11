@@ -23,6 +23,7 @@ lib.log.init(debug=env.DEBUG)
 _logger = lib.log.get_logger(__name__)
 
 app = flask.Flask(__name__, template_folder='template', static_folder='static')
+app.config['FREEZER_BASE_URL'] = env.FREEZER_BASE_URL
 
 app.add_template_filter(model.convert_markdown, name='markdown')
 app.add_template_filter(model.convert_nl2br, name='nl2br')
@@ -44,7 +45,7 @@ def set_globals():
 #----------------------------------------------------------
 # Route
 #----------------------------------------------------------
-@app.route('/index.html', methods=['GET'])
+@app.route('/', methods=['GET'])
 def view_top():
     config = model.get_config()
     data = {
@@ -59,14 +60,14 @@ def view_top():
     return flask.render_template('top.html', data=data)
 
 
-@app.route('/<page_name>.html', methods=['GET'])
+@app.route('/<page_name>/', methods=['GET'])
 def view_page(page_name):
     data = [i for i in model.get_pages() if i['id'] == page_name][0]
 
     return flask.render_template('page.html', data=data)
 
 
-@app.route('/study/<id>.html', methods=['GET'])
+@app.route('/study/<id>/', methods=['GET'])
 def view_study(id):
     config = model.get_config();
     data = [i for i in model.get_study() if i['id'] == id][0]
@@ -90,6 +91,17 @@ def view_404():
 def view_style():
     css = sass.compile( string=flask.render_template('style.scss') )
     return flask.Response(css, mimetype='text/css')
+
+
+@app.route('/sitemap.xml', methods=['GET'])
+def view_sitemap():
+    xml = flask.render_template('sitemap.xml')
+    return flask.Response(xml, mimetype='application/xml')
+
+@app.route('/robots.txt', methods=['GET'])
+def view_robots():
+    xml = flask.render_template('robots.txt')
+    return flask.Response(xml, mimetype='text/plain')
 
 
 #----------------------------------------------------------
